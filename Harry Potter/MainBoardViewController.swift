@@ -1,3 +1,4 @@
+import UIKit
 //
 //  ViewController.swift
 //  Harry Potter
@@ -33,14 +34,19 @@ class MainBoardViewController: UIViewController {
         
     
     }
-    
+
     @IBAction func didTapSelectButton(_ sender: Any) {
+//        showResults()
+      
+        
+        
+        
         // 1. Read the number from slider
         let sliderValue : Float = slider.value
-        
+
         // 2.Translate this number in Int = (sliderValueInt), in order to compare two whole numbers
         let sliderValueInt : Int = Int(sliderValue)
-        
+
         // 3. Compare these numbers and if they resemble then they must be output in console the info about it
         let isValueEquals : Bool = sliderValueInt == guessNumber
         if isValueEquals {
@@ -51,8 +57,9 @@ class MainBoardViewController: UIViewController {
             print("The number is chosen\(sliderValueInt)")
         }
         round += 1
-        roundCountingLabel.text = "Round " + String(round)
+        roundCountingLabel.text = "Round : " + String(round)
         if round == 10 {
+            showResults()
             setUp()
         }
          setUpGuessingNumber()
@@ -80,7 +87,7 @@ class MainBoardViewController: UIViewController {
         
         // Nulligy the round
         round = 0
-        roundCountingLabel.text = "Round :" + String(round)
+        roundCountingLabel.text = "Round : " + String(round)
         
         
     }
@@ -88,6 +95,27 @@ class MainBoardViewController: UIViewController {
     func setUpGuessingNumber() {
         guessNumber = Int.random(in: 1...100)
         taskLabel.text = "Try to guess number : \(guessNumber)"
+    }
+    
+    
+    func showResults() {
+        // Creating Alert.
+        
+        let alert : UIAlertController = UIAlertController(title: " Results of game", message: "You earned \(score) scores", preferredStyle: .alert)
+        
+        // Creating button
+        let okButton = UIAlertAction(title: "Start again", style: .default, handler: { _ in
+            // Action of button
+            print("New game")
+            self.setUp()
+        })
+        
+        // Added button
+        alert.addAction(okButton)
+          
+        // Add button in alert
+        present(alert,animated:true)
+        
     }
 }
 
